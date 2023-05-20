@@ -12,7 +12,7 @@ And each of them can be unidirectional (from either side), or bi-directional in 
 
 Although, we can create similar relations (meaning either via FKs or Join tables)  in db using bi-directional as well as uni-directional relations (from either side),
 unidirectional or bidirectional helps us to NAVIGATE the other entity from current entity objects within JPQL or Criteria query.
-
+<br>
 Sometimes, say if we have one to many relationship, we may not want to create a list on this side of entity (one-to-many side).
 Imagine, scenario of company and employees
 if a company has 1000 employees, and we create a relation (uni-directional or bi-directional) from this side,
