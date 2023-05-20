@@ -1,5 +1,8 @@
 # all-relations
 
+Reference:
+https://thorben-janssen.com/ultimate-guide-association-mappings-jpa-hibernate/
+
 We can have the following relations in an rdbms:
 1. one to one
 2. one to many
