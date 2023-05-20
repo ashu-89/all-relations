@@ -14,7 +14,8 @@ public class Company {
     private String name;
 
     @OneToMany //(mappedBy = "company")
-    @JoinColumn(name="company_id")
+    @JoinColumn(name="company_id") //w/o join column, will hibernate will create a join table
+                                   //for uni-directional one-to-many relations !
     private List<Employee> employees;
 
     //Getters and setters
