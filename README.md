@@ -1,4 +1,4 @@
-# all-relations
+# All-relations
 
 Reference:
 https://thorben-janssen.com/ultimate-guide-association-mappings-jpa-hibernate/
