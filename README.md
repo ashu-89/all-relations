@@ -22,10 +22,11 @@ then everytime a company row is fetched, all 1000s of its employees will be load
 <br>
 Of course LAZY and EAGER fetch type is one way to handle it, but needs to be explored.
 </p>
---
-One to many <br>
+<p>
+<h2>One to many</h2> <br>
 Company, Employees <br>
 1 Company can have many employees, but 1 employee can belong to just 1 company. (legally) <br>
+</p>
 
 #1. Unidirectional relation from Company to Employee:
 
