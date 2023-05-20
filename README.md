@@ -26,8 +26,9 @@ Company, Employees
 1 Company can have many employees, but 1 employee can belong to just 1 company. (legally)
 
 #1. Unidirectional relation from Company to Employee
-   #1a. With @JoinColum - hibernate creates FK in Employee which references Comapny's id
-   #1b. Without @JoinColumn - hibernate creates a join table
+
+<tab>   #1a. With @JoinColum - hibernate creates FK in Employee which references Comapny's id
+<tab>   #1b. Without @JoinColumn - hibernate creates a join table
    
 #2. Unidirectional relation from Employee to Company
 
