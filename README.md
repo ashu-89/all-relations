@@ -27,9 +27,9 @@ Company, Employees
 
 #1. Unidirectional relation from Company to Employee:
 
-   #1a. With @JoinColum - hibernate creates FK in Employee which references Comapny's id
+&emsp #1a. With @JoinColum - hibernate creates FK in Employee which references Comapny's id
    
-   #1b. Without @JoinColumn - hibernate creates a join table
+&emsp #1b. Without @JoinColumn - hibernate creates a join table
    
 #2. Unidirectional relation from Employee to Company
 
