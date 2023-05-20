@@ -17,7 +17,7 @@ unidirectional or bidirectional helps us to NAVIGATE the other entity from curre
 <p>
 Sometimes, say if we have one to many relationship, we may not want to create a list on this side of entity (one-to-many side). <br>   
 Imagine we have to entities - <b>Company</b> and <b>Employees</b>.<br>
-emsp;If a company has 1000 employees, and we create a relation (uni-directional or bi-directional) from this side,
+&emsp;If a company has 1000 employees, and we create a relation (uni-directional or bi-directional) from this side,
 then everytime a company row is fetched, all 1000s of its employees will be loaded in RAM!
 <br>
 Of course LAZY and EAGER fetch type is one way to handle it, but needs to be explored.
