@@ -21,7 +21,7 @@ public class Company {
     private String name;
 
     @OneToMany //(mappedBy = "company") - only required on this side for bi-directional one-to-many relation.
-    @JoinColumn(name="company_id") //w/o join column, hibernate will create a join table
+    //@JoinColumn(name="company_id") //w/o join column, hibernate will create a join table
                                    //for uni-directional one-to-many relations !
     private List<Employee> employees;
 
