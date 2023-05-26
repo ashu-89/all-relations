@@ -2,12 +2,19 @@ package com.relations.all.model;
 
 import jakarta.persistence.*;
 
+import java.util.UUID;
+
 @Entity
 public class Employee {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private String id;
+
+    //@GeneratedValue(strategy = GenerationType.AUTO) cannot be used with String !!
+    //https://docs.jboss.org/hibernate/orm/4.1/manual/en-US/html/ch05.html#mapping-declaration-id
+    //Above creates table in MySQL db, but the column isn't marked G (generated value) and needs to be manually entered!
+
+    private UUID id;
 
     private String name;
 
@@ -17,11 +24,12 @@ public class Employee {
 
     //Getters and Setters
 
-    public String getId() {
+
+    public UUID getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(UUID id) {
         this.id = id;
     }
 
@@ -32,12 +40,4 @@ public class Employee {
     public void setName(String name) {
         this.name = name;
     }
-
-//    public Company getCompany() {
-//        return company;
-//    }
-//
-//    public void setCompany(Company company) {
-//        this.company = company;
-//    }
 }
