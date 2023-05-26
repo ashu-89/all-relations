@@ -1,19 +1,21 @@
 package com.relations.all.model;
 
 import jakarta.persistence.*;
+import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.type.SqlTypes;
 
 import java.util.UUID;
 
 @Entity
 public class Employee {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-
     //@GeneratedValue(strategy = GenerationType.AUTO) cannot be used with String !!
     //https://docs.jboss.org/hibernate/orm/4.1/manual/en-US/html/ch05.html#mapping-declaration-id
     //Above creates table in MySQL db, but the column isn't marked G (generated value) and needs to be manually entered!
 
+    @Id
+    @GeneratedValue
+    @JdbcTypeCode(SqlTypes.VARCHAR)
     private UUID id;
 
     private String name;
