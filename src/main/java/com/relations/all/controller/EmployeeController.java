@@ -28,7 +28,7 @@ public class EmployeeController {
             Page<Employee> pagedResponse =  employeeService.findEmployessByCompanyId(companyId, pageable);
             return new ResponseEntity<>(pagedResponse, HttpStatus.OK);
         } catch (Exception e){
-            throw new Exception("couldn't fetch employees of this company");
+            throw new Exception("couldn't fetch employees of this company"  + e.getMessage());
         }
 
 
