@@ -20,6 +20,12 @@ public class Employee {
 
     private String name;
 
+    private String sex;
+
+    private Integer age;
+
+    private String city;
+
 //    @ManyToOne
 //   // @JoinColumn //(name = "company_id") @JoinColumn is OPTIONAL on this side of the association.
 //    private Company company;
@@ -41,5 +47,29 @@ public class Employee {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getSex() {
+        return sex;
+    }
+
+    public void setSex(String sex) {
+        this.sex = sex;
+    }
+
+    public Integer getAge() {
+        return age;
+    }
+
+    public void setAge(Integer age) {
+        this.age = age;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
     }
 }
