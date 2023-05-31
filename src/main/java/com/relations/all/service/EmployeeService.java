@@ -1,5 +1,6 @@
 package com.relations.all.service;
 
+import com.relations.all.dto.EmployeeDTO;
 import com.relations.all.model.Employee;
 import com.relations.all.repository.EmployeeCustomRepo;
 import com.relations.all.repository.EmployeeRepo;
@@ -19,11 +20,17 @@ public class EmployeeService {
     @Autowired
     EmployeeCustomRepo employeeCustomRepo;
 
-    public Page<Employee> findEmployessByCompany(String companyId, Pageable pageable) {
+    public Page<Employee> findEmployeesByCompany(String companyId, Pageable pageable) {
         return employeeRepo.findEmployeesByCompany(companyId,pageable);
     }
 
-    public Page<Employee> findEmployessByCompanyWithFilters(String companyId, Pageable pageable, Integer age, String sex, String city, String name) {
+    public Page<Employee> findEmployeesByCompanyWithFilters(String companyId, Pageable pageable, Integer age, String sex, String city, String name) {
         return employeeCustomRepo.findEmployeesByCompanyWithFilters(companyId,pageable,age,sex,city,name);
     }
+
+    public Page<EmployeeDTO> findEmployeesDTOByCompanyWithFilters(String companyId, Pageable pageable, Integer age, String sex, String city, String name) {
+        return employeeCustomRepo.findEmployeesDTOByCompanyWithFilters(companyId,pageable,age,sex,city,name);
+
+    }
+
 }

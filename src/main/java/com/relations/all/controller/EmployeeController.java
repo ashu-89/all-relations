@@ -1,5 +1,6 @@
 package com.relations.all.controller;
 
+import com.relations.all.dto.EmployeeDTO;
 import com.relations.all.dto.SearchFilter;
 import com.relations.all.model.Employee;
 import com.relations.all.service.EmployeeService;
@@ -41,8 +42,8 @@ public class EmployeeController {
 
             Pageable pageable = PageRequest.of(pageNo,pageSize);
 
-            //Page<Employee> paginatedResult = employeeService.findEmployessByCompany(companyId, pageable);
-            Page<Employee> paginatedResult = employeeService.findEmployessByCompanyWithFilters(companyId, pageable,
+            //Page<Employee> paginatedResult = employeeService.findEmployeesByCompany(companyId, pageable);
+            Page<Employee> paginatedResult = employeeService.findEmployeesByCompanyWithFilters(companyId, pageable,
                     age, sex, city, name);
 
             return new ResponseEntity<>(paginatedResult, HttpStatus.OK);
@@ -52,6 +53,38 @@ public class EmployeeController {
         }
 
     }
+
+    //
+    @GetMapping("/employee-dto-by-company/{companyId}")
+    public ResponseEntity<Page<EmployeeDTO>> findEmployeesDTOByCompany(@PathVariable("companyId") String companyId,
+                                                                       @RequestParam(value = "pageNo", required = false) Integer pageNo,
+                                                                       @RequestParam(value = "pageSize", required = false) Integer pageSize,
+                                                                       @RequestParam(value = "age", required = false) Integer age,
+                                                                       @RequestParam(value = "sex", required = false) String sex,
+                                                                       @RequestParam(value = "city", required = false) String city,
+                                                                       @RequestParam(value = "name", required = false) String name ) {
+
+        try{
+            if(ObjectUtils.isEmpty(pageNo) || pageNo < 0)
+                pageNo=0;
+
+            if(ObjectUtils.isEmpty(pageSize))
+                pageSize=10;
+
+            Pageable pageable = PageRequest.of(pageNo,pageSize);
+
+            //Page<Employee> paginatedResult = employeeService.findEmployeesByCompany(companyId, pageable);
+            Page<EmployeeDTO> paginatedResult = employeeService.findEmployeesDTOByCompanyWithFilters(companyId, pageable,
+                    age, sex, city, name);
+
+            return new ResponseEntity<>(paginatedResult, HttpStatus.OK);
+
+        } catch (Exception e){
+            throw e;
+        }
+
+    }
+
 
 
 }
