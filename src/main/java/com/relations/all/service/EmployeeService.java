@@ -33,4 +33,7 @@ public class EmployeeService {
 
     }
 
+    public Page<Employee> findEmployeesByCompanyNonDynamic(String companyId, Pageable pageable, Integer age, String sex, String city, String name) {
+        return employeeRepo.findEmployeesByCompanyNonDynamic(companyId,pageable,age,sex,city,name);
+    }
 }
