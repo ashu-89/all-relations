@@ -24,6 +24,6 @@ public class EmployeeService {
 
     public Page<Employee> dynamicFiltersWholeEntity(Pageable pageable, String companyId, String name, Integer age, String sex, String city)
      throws RelationsException {
-        return employeeCustomRepo.dynamicFiltersWholeEntity(pageable, companyId, name, age, sex, city);
+        return employeeCustomRepo.dynamicFiltersWholeEntityOptimized(pageable, companyId, name, age, sex, city);
     }
 }
