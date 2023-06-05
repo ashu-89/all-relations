@@ -8,6 +8,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -30,8 +31,28 @@ public class EmployeeController {
         } catch (Exception e){
             throw new Exception("couldn't fetch employees of this company"  + e.getMessage());
         }
+    }
 
+    @GetMapping("/dynamic-filters-whole-entity/{companyId}")
+    public ResponseEntity<Page<Employee>> dynamicFiltersWholeEntity( @PathVariable("companyId") String companyId,
+     @RequestParam(value = "pageNo", required = false) Integer pageNo,
+     @RequestParam(value = "pageSize", required = false) Integer pageSize,
+     @RequestParam(value = "name", required = false) String name,
+     @RequestParam(value = "age", required = false) Integer age,
+     @RequestParam(value = "sex", required = false) String sex,
+     @RequestParam(value = "city", required = false) String city ) {
 
+        if (ObjectUtils.isEmpty(pageNo) || pageNo<0){
+            pageNo = 0;
+        }
+
+        if(ObjectUtils.isEmpty(pageSize) || pageSize <0){
+            pageSize = 10;
+        }
+
+        Pageable pageable = PageRequest.of(pageNo,pageSize);
+
+        Page<Employee> pagedResult = employeeService.dynamicFiltersWholeEntity(pageable, name, age, sex, city);
 
     }
 }
