@@ -42,18 +42,30 @@ public class StartRunner implements ApplicationRunner {
         //Generate Employees
         Employee e1 = new Employee();
         e1.setName("Ashu");
+        e1.setAge(34);
+        e1.setCity("Bangalore");
+        e1.setSex("male");
         employeeRepo.save(e1);
 
         Employee e2 = new Employee();
         e2.setName("Abhi");
+        e2.setCity("Bangalore");
+        e2.setSex("male");
+        e2.setAge(29);
         employeeRepo.save(e2);
 
         Employee e3 = new Employee();
-        e3.setName("Mark");
+        e3.setName("Martha");
+        e3.setAge(42);
+        e3.setCity("Los Angeles");
+        e3.setSex("female");
         employeeRepo.save(e3);
 
         Employee e4 = new Employee();
-        e4.setName("Sundar");
+        e4.setName("Sundari");
+        e4.setCity("Los Angeles");
+        e4.setSex("female");
+        e4.setAge(35);
         employeeRepo.save(e4);
 
         List<Employee> googleEmployees = new ArrayList<>();
@@ -67,6 +79,7 @@ public class StartRunner implements ApplicationRunner {
         faceBookEmployees.add(e3);
         facebook.setEmployees(faceBookEmployees);
         companyRepo.save(facebook);
+
 
 
 

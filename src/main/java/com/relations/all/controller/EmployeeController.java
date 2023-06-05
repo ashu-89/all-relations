@@ -1,5 +1,6 @@
 package com.relations.all.controller;
 
+import com.relations.all.Exception.RelationsException;
 import com.relations.all.model.Employee;
 import com.relations.all.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,19 +41,29 @@ public class EmployeeController {
      @RequestParam(value = "name", required = false) String name,
      @RequestParam(value = "age", required = false) Integer age,
      @RequestParam(value = "sex", required = false) String sex,
-     @RequestParam(value = "city", required = false) String city ) {
+     @RequestParam(value = "city", required = false) String city ) throws Exception {
 
-        if (ObjectUtils.isEmpty(pageNo) || pageNo<0){
-            pageNo = 0;
+        try {
+
+            if (ObjectUtils.isEmpty(pageNo) || pageNo < 0) {
+                pageNo = 0;
+            }
+
+            if (ObjectUtils.isEmpty(pageSize) || pageSize < 0) {
+                pageSize = 10;
+            }
+
+            Pageable pageable = PageRequest.of(pageNo, pageSize);
+
+            Page<Employee> pagedResult = employeeService.dynamicFiltersWholeEntity(pageable, companyId, name, age, sex, city);
+
+            return new ResponseEntity<>(pagedResult, HttpStatus.OK);
+
+        } catch (RelationsException e){
+            throw e;
+        } catch (Exception e){
+            throw new Exception(e.getMessage());
         }
-
-        if(ObjectUtils.isEmpty(pageSize) || pageSize <0){
-            pageSize = 10;
-        }
-
-        Pageable pageable = PageRequest.of(pageNo,pageSize);
-
-        Page<Employee> pagedResult = employeeService.dynamicFiltersWholeEntity(pageable, name, age, sex, city);
 
     }
 }

@@ -7,5 +7,5 @@ import org.springframework.data.domain.Pageable;
 public interface EmployeeCustomRepo {
 
 
-    Page<Employee> dynamicFiltersWholeEntity(Pageable pageable, String name, Integer age, String sex, String city);
+    Page<Employee> dynamicFiltersWholeEntity(Pageable pageable, String companyId, String name, Integer age, String sex, String city);
 }

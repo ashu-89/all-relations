@@ -33,4 +33,40 @@ public class RelationsException extends Exception {
     public void setHttpStatus(HttpStatus httpStatus) {
         this.httpStatus = httpStatus;
     }
+
+    //constructors
+
+    public RelationsException(String errorCode, String errorMessage, HttpStatus httpStatus) {
+        this.errorCode = errorCode;
+        this.errorMessage = errorMessage;
+        this.httpStatus = httpStatus;
+    }
+
+    public RelationsException(String message, String errorCode, String errorMessage, HttpStatus httpStatus) {
+        super(message);
+        this.errorCode = errorCode;
+        this.errorMessage = errorMessage;
+        this.httpStatus = httpStatus;
+    }
+
+    public RelationsException(String message, Throwable cause, String errorCode, String errorMessage, HttpStatus httpStatus) {
+        super(message, cause);
+        this.errorCode = errorCode;
+        this.errorMessage = errorMessage;
+        this.httpStatus = httpStatus;
+    }
+
+    public RelationsException(Throwable cause, String errorCode, String errorMessage, HttpStatus httpStatus) {
+        super(cause);
+        this.errorCode = errorCode;
+        this.errorMessage = errorMessage;
+        this.httpStatus = httpStatus;
+    }
+
+    public RelationsException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace, String errorCode, String errorMessage, HttpStatus httpStatus) {
+        super(message, cause, enableSuppression, writableStackTrace);
+        this.errorCode = errorCode;
+        this.errorMessage = errorMessage;
+        this.httpStatus = httpStatus;
+    }
 }

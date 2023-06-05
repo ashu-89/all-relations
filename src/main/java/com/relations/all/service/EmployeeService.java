@@ -1,5 +1,6 @@
 package com.relations.all.service;
 
+import com.relations.all.Exception.RelationsException;
 import com.relations.all.model.Employee;
 import com.relations.all.repository.EmployeeRepo;
 import com.relations.all.repository.EmployeeCustomRepo;
@@ -21,7 +22,8 @@ public class EmployeeService {
         return employeeRepo.findEmployeesByCompanyWithPagination(companyId,pageable);
     }
 
-    public Page<Employee> dynamicFiltersWholeEntity(Pageable pageable, String name, Integer age, String sex, String city) {
-        return employeeCustomRepo.dynamicFiltersWholeEntity(pageable, name, age, sex, city);
+    public Page<Employee> dynamicFiltersWholeEntity(Pageable pageable, String companyId, String name, Integer age, String sex, String city)
+     throws RelationsException {
+        return employeeCustomRepo.dynamicFiltersWholeEntity(pageable, companyId, name, age, sex, city);
     }
 }
