@@ -31,26 +31,74 @@ public class EmployeeCustomRepoImpl implements EmployeeCustomRepo {
                 " where company_id = :companyId " +
                 ")";
 
+        String fixedPartCountQuery = "select count(*) from employee " +
+                "where id in ( " +
+                " select employees_id " +
+                " from company_employees " +
+                " where company_id = :companyId " +
+                ")";
+
         //Dynamic part of the query
         if(!ObjectUtils.isEmpty(name)){
             fixedPart += " AND name LIKE CONCAT('%', :name, '%') ";
+            fixedPartCountQuery += " AND name LIKE CONCAT('%', :name, '%') ";
+        }
+
+        if(!ObjectUtils.isEmpty(age)){
+            fixedPart += " AND age = :age ";
+            fixedPartCountQuery += " AND age = :age ";
+        }
+
+        if(!ObjectUtils.isEmpty(sex)){
+            fixedPart += " AND sex = :sex ";
+            fixedPartCountQuery += " AND sex = :sex ";
+        }
+
+        if(!ObjectUtils.isEmpty(city)){
+            fixedPart += " AND city = :city ";
+            fixedPartCountQuery += " AND city = :city ";
+
         }
 
         //Create native query
         Query nativeQuery = entityManager.createNativeQuery(fixedPart);
+        Query countQuery = entityManager.createNativeQuery(fixedPartCountQuery);
 
         //Bind parameters
 
         //first bind path variable
         nativeQuery.setParameter("companyId", companyId);
+        countQuery.setParameter("companyId", companyId);
 
         //now bind others
         if(!ObjectUtils.isEmpty(name)){
            nativeQuery.setParameter("name",name);
+           countQuery.setParameter("name",name);
         }
 
-        List resultList = nativeQuery.getResultList();
+        if(!ObjectUtils.isEmpty(age)){
+            nativeQuery.setParameter("age",age);
+            countQuery.setParameter("age",age);
+        }
 
-        return new PageImpl<>(resultList, pageable, 2);
+        if(!ObjectUtils.isEmpty(sex)){
+            nativeQuery.setParameter("sex",sex);
+            countQuery.setParameter("sex",sex);
+        }
+
+        if(!ObjectUtils.isEmpty(city)){
+            nativeQuery.setParameter("city",city);
+            countQuery.setParameter("city",city);
+        }
+
+        nativeQuery.setFirstResult(pageable.getPageNumber());
+        nativeQuery.setMaxResults(pageable.getPageSize());
+
+        List resultList = nativeQuery.getResultList();
+        Long count = (Long) countQuery.getSingleResult();
+
+
+
+        return new PageImpl<>(resultList, pageable, count);
     }
 }
