@@ -8,6 +8,11 @@ public class RelationsException extends Exception {
 
     private HttpStatus httpStatus;
 
+    public RelationsException(String errorMessage) {
+        this.errorMessage = errorMessage;
+        this.httpStatus = HttpStatus.INTERNAL_SERVER_ERROR;
+    }
+
 
     //Getters and Setters
     public String getErrorCode() {

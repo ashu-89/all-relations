@@ -1,6 +1,7 @@
 package com.relations.all.controller;
 
 import com.relations.all.Exception.RelationsException;
+import com.relations.all.dto.EmployeeDTO;
 import com.relations.all.model.Employee;
 import com.relations.all.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -56,6 +57,45 @@ public class EmployeeController {
             Pageable pageable = PageRequest.of(pageNo, pageSize);
 
             Page<Employee> pagedResult = employeeService.dynamicFiltersWholeEntity(pageable, companyId, name, age, sex, city);
+
+            return new ResponseEntity<>(pagedResult, HttpStatus.OK);
+
+        } catch (RelationsException e){
+            throw e;
+        } catch (Exception e){
+            throw new Exception(e.getMessage());
+        }
+
+    }
+
+    @GetMapping("/dynamic-filters-dto/{companyId}")
+    public ResponseEntity<Page<EmployeeDTO>> dynamicFiltersDTO(@PathVariable("companyId") String companyId,
+                                                               @RequestParam(value = "pageNo", required = false) Integer pageNo,
+                                                               @RequestParam(value = "pageSize", required = false) Integer pageSize,
+                                                               @RequestParam(value = "name", required = false) String name,
+                                                               @RequestParam(value = "age", required = false) Integer age,
+                                                               @RequestParam(value = "sex", required = false) String sex,
+                                                               @RequestParam(value = "city", required = false) String city ) throws Exception {
+
+        try {
+
+            if(ObjectUtils.isEmpty(companyId)){
+                throw new RelationsException("Company Id is mandatory");
+            }
+
+            if (ObjectUtils.isEmpty(pageNo) || pageNo < 0) {
+                pageNo = 0;
+            }
+
+            if (ObjectUtils.isEmpty(pageSize) || pageSize < 0) {
+                pageSize = 10;
+            }
+
+
+
+            Pageable pageable = PageRequest.of(pageNo, pageSize);
+
+            Page<EmployeeDTO> pagedResult = employeeService.dynamicFiltersDTO(pageable, companyId, name, age, sex, city);
 
             return new ResponseEntity<>(pagedResult, HttpStatus.OK);
 

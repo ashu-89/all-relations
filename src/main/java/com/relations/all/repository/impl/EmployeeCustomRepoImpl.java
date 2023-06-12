@@ -1,5 +1,6 @@
 package com.relations.all.repository.impl;
 
+import com.relations.all.dto.EmployeeDTO;
 import com.relations.all.model.Employee;
 import com.relations.all.repository.EmployeeCustomRepo;
 import jakarta.persistence.EntityManager;
@@ -11,6 +12,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.ObjectUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Repository
@@ -91,5 +93,87 @@ public class EmployeeCustomRepoImpl implements EmployeeCustomRepo {
         Long count = (Long) countQuery.getSingleResult();
 
         return new PageImpl<>(resultList, pageable, count);
+    }
+
+    @Override
+    public Page<EmployeeDTO> dynamicFiltersDTO(Pageable pageable, String companyId, String name, Integer age, String sex, String city) {
+
+        String selectHead = "Select * ";
+        String selectCountHead = "Select count(*) ";
+
+        String fixedPart = " from employee where id in ( " +
+                " select employees_id " +
+                " from company_employees " +
+                " where company_id = :companyId " +
+                ") ";
+
+        if(!ObjectUtils.isEmpty(name)){
+            fixedPart += " AND name like CONCAT( '%', :name, '%') ";
+        }
+
+        if(!ObjectUtils.isEmpty(age)){
+            fixedPart += " AND age = :age ";
+        }
+
+        if(!ObjectUtils.isEmpty(sex)){
+            fixedPart += " AND sex = :sex ";
+        }
+
+        if(!ObjectUtils.isEmpty(city)){
+            fixedPart += " AND city = :city ";
+        }
+
+        //Create paginatedQuery and CountQuery
+        Query paginatedQuery = entityManager.createNativeQuery(selectHead + fixedPart);
+        Query countQuery = entityManager.createNativeQuery(selectCountHead + fixedPart);
+
+        //Bind parameters
+
+        //Mandatory params
+        paginatedQuery.setParameter("companyId", companyId);
+        countQuery.setParameter("companyId", companyId);
+
+        //Filters
+        if(!ObjectUtils.isEmpty(name)){
+            paginatedQuery.setParameter("name", name);
+            countQuery.setParameter("name", name);
+        }
+
+        if(!ObjectUtils.isEmpty(age)){
+            paginatedQuery.setParameter("age", age);
+            countQuery.setParameter("age", age);
+        }
+
+        if(!ObjectUtils.isEmpty(sex)){
+            paginatedQuery.setParameter("sex", sex);
+            countQuery.setParameter("sex", sex);
+        }
+
+        if(!ObjectUtils.isEmpty(city)){
+            paginatedQuery.setParameter("city", city);
+            countQuery.setParameter("city", city);
+        }
+
+        //Set offset and limit for paginated query
+        paginatedQuery.setFirstResult(pageable.getPageNumber());
+        paginatedQuery.setMaxResults(pageable.getPageSize());
+
+        List<Object[]> resultList = paginatedQuery.getResultList();
+
+        long count = (Long) countQuery.getSingleResult();
+
+        List<EmployeeDTO> employeeDTOList = new ArrayList<>();
+
+        resultList.forEach(x -> {
+            EmployeeDTO dto = new EmployeeDTO();
+            dto.setName(x[3].toString());
+            dto.setAge( (Integer) x[0]);
+            dto.setSex(x[4].toString());
+            dto.setCity(x[2].toString());
+
+            employeeDTOList.add(dto);
+        });
+
+        return new PageImpl<>(employeeDTOList,pageable, count);
     }
 }
