@@ -28,7 +28,7 @@ public class Employee {
     private String city;
 
     @JsonBackReference //Annotation works here as well as if applied only on getter
-    @ManyToOne(fetch=FetchType.LAZY)
+    @ManyToOne(fetch=FetchType.EAGER)
 // @JoinColumn //(name = "company_id") @JoinColumn is OPTIONAL on this side of the association.
     //This annotation is used only if we want custom name of the fk field (default - attributeNameOfThisTable_primaryKeyNameOfOtherTable)
     private Company company;
