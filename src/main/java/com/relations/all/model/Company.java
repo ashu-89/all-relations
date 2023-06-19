@@ -21,7 +21,8 @@ public class Company {
 
     private String name;
 
-    @OneToMany (mappedBy = "company") //- only required on this side for bi-directional one-to-many relation.
+    @JsonManagedReference //Annotations work here as well as when applied to getter itself
+    @OneToMany ( cascade=CascadeType.ALL, fetch=FetchType.LAZY, mappedBy = "company") //- only required on this side for bi-directional one-to-many relation.
     //@JoinColumn(name="company_id")  //w/o join column, hibernate will create a join table
                                       //for uni-directional one-to-many relations !
     private List<Employee> employees;
@@ -44,7 +45,8 @@ public class Company {
         this.name = name;
     }
 
-    @JsonManagedReference
+
+    //@JsonManagedReference
     public List<Employee> getEmployees() {
         return employees;
     }
