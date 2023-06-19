@@ -30,11 +30,7 @@ public class EmployeeCustomRepoImpl implements EmployeeCustomRepo {
         String selectCountStatement = "select count(*) from employee ";
 
         String fixedPart =
-                "where id in ( " +
-                " select employees_id " +
-                " from company_employees " +
-                " where company_id = :companyId " +
-                ")";
+                " where company_id = :companyId " ;
 
 
 
@@ -101,11 +97,7 @@ public class EmployeeCustomRepoImpl implements EmployeeCustomRepo {
         String selectHead = "Select * ";
         String selectCountHead = "Select count(*) ";
 
-        String fixedPart = " from employee where id in ( " +
-                " select employees_id " +
-                " from company_employees " +
-                " where company_id = :companyId " +
-                ") ";
+        String fixedPart = " from employee where company_id = :companyId " ;
 
         if(!ObjectUtils.isEmpty(name)){
             fixedPart += " AND name like CONCAT( '%', :name, '%') ";
@@ -166,10 +158,10 @@ public class EmployeeCustomRepoImpl implements EmployeeCustomRepo {
 
         resultList.forEach(x -> {
             EmployeeDTO dto = new EmployeeDTO();
-            dto.setName(x[3].toString());
+            dto.setName(x[4].toString());
             dto.setAge( (Integer) x[0]);
-            dto.setSex(x[4].toString());
-            dto.setCity(x[2].toString());
+            dto.setSex(x[5].toString());
+            dto.setCity(x[3].toString());
 
             employeeDTOList.add(dto);
         });

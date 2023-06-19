@@ -14,17 +14,9 @@ import java.util.UUID;
 public interface EmployeeRepo extends JpaRepository<Employee, UUID> {
 
     @Query(value = "select * from employee " +
-            "where id in ( " +
-            " select employees_id " +
-            " from company_employees " +
-            " where company_id = :companyId " +
-            ")",
+            " where company_id = :companyId ",
             countQuery = "select count(*) from employee " +
-                    " where id in ( " +
-                    " select employees_id " +
-                    " from company_employees " +
-                    " where company_id = :companyId " +
-                    " )",
+                    " where company_id = :companyId ",
             nativeQuery = true
     )
     Page<Employee> findEmployeesByCompanyWithPagination(String companyId, Pageable pageable);

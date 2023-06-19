@@ -45,6 +45,7 @@ public class StartRunner implements ApplicationRunner {
         e1.setAge(34);
         e1.setCity("Bangalore");
         e1.setSex("male");
+        e1.setCompany(google);
         employeeRepo.save(e1);
 
         Employee e2 = new Employee();
@@ -52,6 +53,7 @@ public class StartRunner implements ApplicationRunner {
         e2.setCity("Bangalore");
         e2.setSex("male");
         e2.setAge(29);
+        e2.setCompany(facebook);
         employeeRepo.save(e2);
 
         Employee e3 = new Employee();
@@ -59,6 +61,7 @@ public class StartRunner implements ApplicationRunner {
         e3.setAge(42);
         e3.setCity("Los Angeles");
         e3.setSex("female");
+        e3.setCompany(google);
         employeeRepo.save(e3);
 
         Employee e4 = new Employee();
@@ -66,19 +69,20 @@ public class StartRunner implements ApplicationRunner {
         e4.setCity("Los Angeles");
         e4.setSex("female");
         e4.setAge(35);
+        e4.setCompany(facebook);
         employeeRepo.save(e4);
 
-        List<Employee> googleEmployees = new ArrayList<>();
-        googleEmployees.add(e1);
-        googleEmployees.add(e4);
-        google.setEmployees(googleEmployees);
-        companyRepo.save(google);
-
-        List<Employee> faceBookEmployees = new ArrayList<>();
-        faceBookEmployees.add(e2);
-        faceBookEmployees.add(e3);
-        facebook.setEmployees(faceBookEmployees);
-        companyRepo.save(facebook);
+//        List<Employee> googleEmployees = new ArrayList<>();
+//        googleEmployees.add(e1);
+//        googleEmployees.add(e4);
+//        google.setEmployees(googleEmployees);
+//        companyRepo.save(google);
+//
+//        List<Employee> faceBookEmployees = new ArrayList<>();
+//        faceBookEmployees.add(e2);
+//        faceBookEmployees.add(e3);
+//        facebook.setEmployees(faceBookEmployees);
+//        companyRepo.save(facebook);
 
 
 

@@ -20,10 +20,10 @@ public class Company {
 
     private String name;
 
-    @OneToMany //(mappedBy = "company") - only required on this side for bi-directional one-to-many relation.
-    //@JoinColumn(name="company_id") //w/o join column, hibernate will create a join table
-                                   //for uni-directional one-to-many relations !
-    private List<Employee> employees;
+//    @OneToMany //(mappedBy = "company") - only required on this side for bi-directional one-to-many relation.
+//    //@JoinColumn(name="company_id") //w/o join column, hibernate will create a join table
+//                                   //for uni-directional one-to-many relations !
+//    private List<Employee> employees;
 
     //Getters and setters
 
@@ -43,11 +43,11 @@ public class Company {
         this.name = name;
     }
 
-    public List<Employee> getEmployees() {
-        return employees;
-    }
-
-    public void setEmployees(List<Employee> employees) {
-        this.employees = employees;
-    }
+//    public List<Employee> getEmployees() {
+//        return employees;
+//    }
+//
+//    public void setEmployees(List<Employee> employees) {
+//        this.employees = employees;
+//    }
 }

@@ -25,9 +25,10 @@ public class Employee {
     private String sex;
     private String city;
 
-//    @ManyToOne
-//   // @JoinColumn //(name = "company_id") @JoinColumn is OPTIONAL on this side of the association.
-//    private Company company;
+    @ManyToOne
+// @JoinColumn //(name = "company_id") @JoinColumn is OPTIONAL on this side of the association.
+    //This annotation is used only if we want custom name of the fk field (default - attributeNameOfThisTable_primaryKeyNameOfOtherTable)
+    private Company company;
 
     //Getters and Setters
 
@@ -70,5 +71,13 @@ public class Employee {
 
     public void setCity(String city) {
         this.city = city;
+    }
+
+    public Company getCompany() {
+        return company;
+    }
+
+    public void setCompany(Company company) {
+        this.company = company;
     }
 }
