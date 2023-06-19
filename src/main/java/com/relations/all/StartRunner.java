@@ -2,16 +2,17 @@ package com.relations.all;
 
 import com.relations.all.model.Company;
 import com.relations.all.model.Employee;
+import com.relations.all.model.Product;
 import com.relations.all.repository.CompanyRepo;
 import com.relations.all.repository.EmployeeRepo;
+import com.relations.all.repository.ProductRepo;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 @Component
 @AllArgsConstructor
@@ -23,6 +24,9 @@ public class StartRunner implements ApplicationRunner {
 
     @Autowired
     EmployeeRepo employeeRepo;
+
+    @Autowired
+    ProductRepo productRepo;
 
     @Override
     public void run(ApplicationArguments args) throws Exception {
@@ -83,6 +87,16 @@ public class StartRunner implements ApplicationRunner {
         faceBookEmployees.add(e4);
         facebook.setEmployees(faceBookEmployees);
         companyRepo.save(facebook);
+
+        Product email = new Product();
+        email.setName("email");
+
+        Set<Company> companyThatSellEmails = new HashSet<>();
+        companyThatSellEmails.add(google);
+        companyThatSellEmails.add(facebook);
+
+        email.setCompanies(companyThatSellEmails);
+        productRepo.save(email);
 
 
     }
