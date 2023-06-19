@@ -23,8 +23,8 @@ public class Product {
 
     String name;
 
-    @ManyToMany
-    Set<Company> companies = new HashSet<>();
+//    @ManyToMany
+//    Set<Company> companies = new HashSet<>();
 
     //Getters and setters
 
@@ -44,11 +44,11 @@ public class Product {
         this.name = name;
     }
 
-    public Set<Company> getCompanies() {
-        return companies;
-    }
-
-    public void setCompanies(Set<Company> companies) {
-        this.companies = companies;
-    }
+//    public Set<Company> getCompanies() {
+//        return companies;
+//    }
+//
+//    public void setCompanies(Set<Company> companies) {
+//        this.companies = companies;
+//    }
 }

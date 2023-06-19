@@ -28,29 +28,29 @@ public class ProductController {
     @Autowired
     ProductService productService;
 
-    @GetMapping(path = "/products/{productId}/companies")
-    public ResponseEntity<Set<Company>> getCompaniesByProductId(@PathVariable ("productId") UUID productId,
-                                                    @RequestParam(value = "pageNo", required = false) Integer pageNo,
-                                                    @RequestParam(value = "pageSize", required = false) Integer pageSize) throws RelationsException {
-
-
-        if (ObjectUtils.isEmpty(pageNo) || pageNo < 0) {
-            pageNo = 0;
-        }
-
-        if (ObjectUtils.isEmpty(pageSize) || pageSize < 0) {
-            pageSize = 10;
-        }
-
-        Pageable pageable = PageRequest.of(pageNo, pageSize);
-
-        Product product = productService.findCompaniesByProductId(productId, pageable )
-                .orElseThrow( () -> new RelationsException("invalid productId") );
-
-        return new ResponseEntity<>( product.getCompanies(), HttpStatus.OK  );
-
-
-
-
-    }
+//    @GetMapping(path = "/products/{productId}/companies")
+//    public ResponseEntity<Set<Company>> getCompaniesByProductId(@PathVariable ("productId") UUID productId,
+//                                                    @RequestParam(value = "pageNo", required = false) Integer pageNo,
+//                                                    @RequestParam(value = "pageSize", required = false) Integer pageSize) throws RelationsException {
+//
+//
+//        if (ObjectUtils.isEmpty(pageNo) || pageNo < 0) {
+//            pageNo = 0;
+//        }
+//
+//        if (ObjectUtils.isEmpty(pageSize) || pageSize < 0) {
+//            pageSize = 10;
+//        }
+//
+//        Pageable pageable = PageRequest.of(pageNo, pageSize);
+//
+//        Product product = productService.findCompaniesByProductId(productId, pageable )
+//                .orElseThrow( () -> new RelationsException("invalid productId") );
+//
+//        return new ResponseEntity<>( product.getCompanies(), HttpStatus.OK  );
+//
+//
+//
+//
+//    }
 }

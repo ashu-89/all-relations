@@ -90,13 +90,35 @@ public class StartRunner implements ApplicationRunner {
 
         Product email = new Product();
         email.setName("email");
-
-        Set<Company> companyThatSellEmails = new HashSet<>();
-        companyThatSellEmails.add(google);
-        companyThatSellEmails.add(facebook);
-
-        email.setCompanies(companyThatSellEmails);
         productRepo.save(email);
+
+        Product feed = new Product();
+        feed.setName("feed");
+        productRepo.save(feed);
+
+        Set<Product> productsSoldByGoogle = new HashSet<>();
+        Set<Product> productsSoldByFacebook = new HashSet<>();
+
+        productsSoldByFacebook.add(email);
+        productsSoldByFacebook.add(feed);
+
+        productsSoldByGoogle.add(email);
+
+        google.setProducts(productsSoldByGoogle);
+        facebook.setProducts(productsSoldByFacebook);
+
+        companyRepo.save(google);
+        companyRepo.save(facebook);
+
+
+//        Set<Company> companyThatSellEmails = new HashSet<>();
+//        companyThatSellEmails.add(google);
+//        companyThatSellEmails.add(facebook);
+//
+//        email.setCompanies(companyThatSellEmails);
+
+
+
 
 
     }
