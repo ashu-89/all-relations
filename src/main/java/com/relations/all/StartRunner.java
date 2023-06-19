@@ -72,19 +72,17 @@ public class StartRunner implements ApplicationRunner {
         e4.setCompany(facebook);
         employeeRepo.save(e4);
 
-//        List<Employee> googleEmployees = new ArrayList<>();
-//        googleEmployees.add(e1);
-//        googleEmployees.add(e4);
-//        google.setEmployees(googleEmployees);
-//        companyRepo.save(google);
-//
-//        List<Employee> faceBookEmployees = new ArrayList<>();
-//        faceBookEmployees.add(e2);
-//        faceBookEmployees.add(e3);
-//        facebook.setEmployees(faceBookEmployees);
-//        companyRepo.save(facebook);
+        List<Employee> googleEmployees = new ArrayList<>();
+        googleEmployees.add(e1);
+        googleEmployees.add(e3);
+        google.setEmployees(googleEmployees);
+        companyRepo.save(google);
 
-
+        List<Employee> faceBookEmployees = new ArrayList<>();
+        faceBookEmployees.add(e2);
+        faceBookEmployees.add(e4);
+        facebook.setEmployees(faceBookEmployees);
+        companyRepo.save(facebook);
 
 
     }

@@ -1,5 +1,6 @@
 package com.relations.all.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import org.hibernate.annotations.JdbcTypeCode;
@@ -73,6 +74,7 @@ public class Employee {
         this.city = city;
     }
 
+    @JsonBackReference
     public Company getCompany() {
         return company;
     }
