@@ -91,6 +91,13 @@ public class StartRunner implements ApplicationRunner {
         Product email = new Product();
         email.setName("email");
 
+        Product post = new Product();
+        post.setName("post");
+
+        Product search = new Product();
+        search.setName("search");
+
+
         Set<Company> companyThatSellEmails = new HashSet<>();
         companyThatSellEmails.add(google);
         companyThatSellEmails.add(facebook);
@@ -98,13 +105,27 @@ public class StartRunner implements ApplicationRunner {
         email.setCompanies(companyThatSellEmails);
         productRepo.save(email);
 
+        Set<Company> companiesThatSellPost = new HashSet<>();
+        companiesThatSellPost.add(facebook);
+
+        post.setCompanies(companiesThatSellPost);
+        productRepo.save(post);
+
+        Set<Company> companiesThatSellSearch = new HashSet<>();
+        companiesThatSellSearch.add(google);
+
+        search.setCompanies(companiesThatSellSearch);
+        productRepo.save(search);
+
         Set<Product> productsSoldByGoogle = new HashSet<>();
         productsSoldByGoogle.add(email);
+        productsSoldByGoogle.add(search);
         google.setProducts(productsSoldByGoogle);
         companyRepo.save(google);
 
         Set<Product> productsSoldByFacebook = new HashSet<>();
         productsSoldByFacebook.add(email);
+        productsSoldByFacebook.add(post);
         facebook.setProducts(productsSoldByFacebook);
         companyRepo.save(facebook);
 
