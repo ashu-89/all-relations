@@ -17,20 +17,20 @@ import java.util.Set;
 import java.util.UUID;
 
 @Entity
-@JsonIdentityInfo(
-        generator = ObjectIdGenerators.PropertyGenerator.class,
-        property = "id")
+//@JsonIdentityInfo(
+//        generator = ObjectIdGenerators.PropertyGenerator.class,
+//        property = "id")
 public class Company {
 
     @Id
     @GeneratedValue
-    @JdbcTypeCode(SqlTypes.VARCHAR)
-    private UUID id;
+    //@JdbcTypeCode(SqlTypes.VARCHAR)
+    private Long id;
 
     private String name;
 
     @ManyToMany
-    @JsonIgnore
+    //@JsonIgnore
     Set<Product> products = new HashSet<>();
 
     @JsonManagedReference //Annotations work here as well as when applied to getter itself
@@ -41,11 +41,12 @@ public class Company {
 
     //Getters and setters
 
-    public UUID getId() {
+
+    public Long getId() {
         return id;
     }
 
-    public void setId(UUID id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

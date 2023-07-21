@@ -23,8 +23,8 @@ public class Product {
 
     @Id
     @GeneratedValue
-    @JdbcTypeCode(SqlTypes.VARCHAR)
-    UUID id;
+    //@JdbcTypeCode(SqlTypes.VARCHAR)
+    Long id;
 
     String name;
 
@@ -33,11 +33,12 @@ public class Product {
 
     //Getters and setters
 
-    public UUID getId() {
+
+    public Long getId() {
         return id;
     }
 
-    public void setId(UUID id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

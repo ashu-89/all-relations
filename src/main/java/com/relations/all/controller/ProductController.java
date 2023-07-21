@@ -29,7 +29,7 @@ public class ProductController {
     ProductService productService;
 
     @GetMapping(path = "/products/{productId}/companies")
-    public ResponseEntity<Set<Company>> getCompaniesByProductId(@PathVariable ("productId") UUID productId,
+    public ResponseEntity<Set<Company>> getCompaniesByProductId(@PathVariable ("productId") Long productId,
                                                     @RequestParam(value = "pageNo", required = false) Integer pageNo,
                                                     @RequestParam(value = "pageSize", required = false) Integer pageSize) throws RelationsException {
 
