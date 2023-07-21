@@ -1,5 +1,7 @@
 package com.relations.all.model;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -14,6 +16,9 @@ import java.util.UUID;
 @Setter
 @Entity
 @Table(name = "product")
+@JsonIdentityInfo(
+        generator = ObjectIdGenerators.PropertyGenerator.class,
+        property = "id")
 public class Product {
 
     @Id
@@ -23,7 +28,7 @@ public class Product {
 
     String name;
 
-    @ManyToMany
+    @ManyToMany ( mappedBy = "products")
     Set<Company> companies = new HashSet<>();
 
     //Getters and setters

@@ -98,6 +98,15 @@ public class StartRunner implements ApplicationRunner {
         email.setCompanies(companyThatSellEmails);
         productRepo.save(email);
 
+        Set<Product> productsSoldByGoogle = new HashSet<>();
+        productsSoldByGoogle.add(email);
+        google.setProducts(productsSoldByGoogle);
+        companyRepo.save(google);
+
+        Set<Product> productsSoldByFacebook = new HashSet<>();
+        productsSoldByFacebook.add(email);
+        facebook.setProducts(productsSoldByFacebook);
+        companyRepo.save(facebook);
 
     }
 
