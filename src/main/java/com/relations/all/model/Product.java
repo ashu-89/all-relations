@@ -16,9 +16,9 @@ import java.util.UUID;
 @Setter
 @Entity
 @Table(name = "product")
-@JsonIdentityInfo(
-        generator = ObjectIdGenerators.PropertyGenerator.class,
-        property = "id")
+//@JsonIdentityInfo(
+//        generator = ObjectIdGenerators.PropertyGenerator.class,
+//        property = "id")
 public class Product {
 
     @Id

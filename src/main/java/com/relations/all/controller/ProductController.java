@@ -1,6 +1,7 @@
 package com.relations.all.controller;
 
 import com.relations.all.Exception.RelationsException;
+import com.relations.all.dto.CompanyDTO;
 import com.relations.all.dto.ProductDTO;
 import com.relations.all.model.Company;
 import com.relations.all.model.Product;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
 import java.util.UUID;
@@ -29,9 +31,9 @@ public class ProductController {
     ProductService productService;
 
     @GetMapping(path = "/products/{productId}/companies")
-    public ResponseEntity<Set<Company>> getCompaniesByProductId(@PathVariable ("productId") Long productId,
-                                                    @RequestParam(value = "pageNo", required = false) Integer pageNo,
-                                                    @RequestParam(value = "pageSize", required = false) Integer pageSize) throws RelationsException {
+    public ResponseEntity<Set<CompanyDTO>> getCompaniesByProductId(@PathVariable ("productId") Long productId,
+                                                                   @RequestParam(value = "pageNo", required = false) Integer pageNo,
+                                                                   @RequestParam(value = "pageSize", required = false) Integer pageSize) throws RelationsException {
 
 
         if (ObjectUtils.isEmpty(pageNo) || pageNo < 0) {
@@ -47,7 +49,17 @@ public class ProductController {
         Product product = productService.findCompaniesByProductId(productId, pageable )
                 .orElseThrow( () -> new RelationsException("invalid productId") );
 
-        return new ResponseEntity<>( product.getCompanies(), HttpStatus.OK  );
+        Set<CompanyDTO> responseSet = new HashSet<>();
+
+        product.getCompanies().forEach(x -> {
+            CompanyDTO dto = new CompanyDTO();
+            dto.setId(x.getId());
+            dto.setName(x.getName());
+            responseSet.add(dto);
+        });
+
+
+        return new ResponseEntity<>( responseSet, HttpStatus.OK  );
 
 
 
