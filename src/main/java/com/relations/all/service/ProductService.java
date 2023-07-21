@@ -7,6 +7,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 public class ProductService {
@@ -15,7 +16,7 @@ public class ProductService {
     ProductRepo productRepo;
 
 
-    public Optional<Product> findCompaniesByProductId(Long productId, Pageable pageable) {
+    public Optional<Product> findCompaniesByProductId(UUID productId, Pageable pageable) {
         return productRepo.findById(productId);
     }
 }

@@ -24,8 +24,8 @@ public class Company {
 
     @Id
     @GeneratedValue
-    //@JdbcTypeCode(SqlTypes.VARCHAR)
-    private Long id;
+    @JdbcTypeCode(SqlTypes.VARCHAR)
+    private UUID id;
 
     private String name;
 
@@ -40,13 +40,11 @@ public class Company {
     private List<Employee> employees;
 
     //Getters and setters
-
-
-    public Long getId() {
+    public UUID getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(UUID id) {
         this.id = id;
     }
 

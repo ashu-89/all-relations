@@ -2,7 +2,7 @@ package com.relations.all.dto;
 
 import java.util.UUID;
 
-public class CompanyDTO {
+public class ProductWithoutCompanyDTO {
     private UUID id;
     private String name;
 

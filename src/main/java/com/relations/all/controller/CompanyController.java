@@ -1,5 +1,6 @@
 package com.relations.all.controller;
 
+import com.relations.all.dto.ProductWithoutCompanyDTO;
 import com.relations.all.model.Company;
 import com.relations.all.model.Employee;
 import com.relations.all.model.Product;
@@ -15,10 +16,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
-import java.util.UUID;
+import java.util.*;
 
 @RestController
 public class CompanyController {
@@ -47,7 +45,7 @@ public class CompanyController {
     }
 
     @GetMapping("/company/{id}/products")
-    public ResponseEntity<Set<Product>> getAllProducts(
+    public ResponseEntity<Set<ProductWithoutCompanyDTO>> getAllProducts(
             @PathVariable(name = "id", required = true) UUID uuid,
             @RequestParam(name = "pageNumber", required = false) Integer pageNumber,
             @RequestParam(name = "pageSize", required = false) Integer pageSize) throws Exception {
@@ -59,7 +57,16 @@ public class CompanyController {
         Company company = companyRepo.findById(uuid)
                 .orElseThrow( () -> new Exception("Invalid uuid"));
 
-        return new ResponseEntity<>(company.getProducts(), HttpStatus.OK);
+        Set<ProductWithoutCompanyDTO> responseSet = new HashSet<>();
+
+        company.getProducts().forEach(x->{
+            ProductWithoutCompanyDTO dto = new ProductWithoutCompanyDTO();
+            dto.setName(x.getName());
+            dto.setId(x.getId());
+            responseSet.add(dto);
+        });
+
+        return new ResponseEntity<>(responseSet, HttpStatus.OK);
 
 
     }
