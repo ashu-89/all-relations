@@ -33,7 +33,7 @@ public class ProductController {
     @Autowired
     ProductService productService;
 
-    @GetMapping(path = "/products/{productId}/companies", produces="application/json")
+    @GetMapping(path = "/products/{productId}/companies" /*, produces="application/json" */ )
     public ResponseEntity<String> getCompaniesByProductId(@PathVariable ("productId") UUID productId,
                                                                    @RequestParam(value = "pageNo", required = false) Integer pageNo,
                                                                    @RequestParam(value = "pageSize", required = false) Integer pageSize) throws RelationsException, JsonProcessingException {
