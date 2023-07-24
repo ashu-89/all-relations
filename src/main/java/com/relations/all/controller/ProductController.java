@@ -14,7 +14,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -64,11 +66,9 @@ public class ProductController {
         String result = new ObjectMapper().writerWithView(Views.Public.class)
                 .writeValueAsString(product.getCompanies());
 
-
-        return new ResponseEntity<>( result, HttpStatus.OK  );
-
-
-
+        final HttpHeaders httpHeaders= new HttpHeaders();
+        httpHeaders.setContentType(MediaType.APPLICATION_JSON);
+        return new ResponseEntity<>( result, httpHeaders, HttpStatus.OK  );
 
     }
 }
