@@ -1,5 +1,7 @@
 package com.relations.all.controller;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.relations.all.Exception.RelationsException;
 import com.relations.all.dto.CompanyDTO;
 import com.relations.all.dto.ProductDTO;
@@ -7,6 +9,7 @@ import com.relations.all.model.Company;
 import com.relations.all.model.Product;
 import com.relations.all.repository.ProductRepo;
 import com.relations.all.service.ProductService;
+import com.relations.all.views.Views;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -30,10 +33,10 @@ public class ProductController {
     @Autowired
     ProductService productService;
 
-    @GetMapping(path = "/products/{productId}/companies")
-    public ResponseEntity<Set<CompanyDTO>> getCompaniesByProductId(@PathVariable ("productId") UUID productId,
+    @GetMapping(path = "/products/{productId}/companies", produces="application/json")
+    public ResponseEntity<String> getCompaniesByProductId(@PathVariable ("productId") UUID productId,
                                                                    @RequestParam(value = "pageNo", required = false) Integer pageNo,
-                                                                   @RequestParam(value = "pageSize", required = false) Integer pageSize) throws RelationsException {
+                                                                   @RequestParam(value = "pageSize", required = false) Integer pageSize) throws RelationsException, JsonProcessingException {
 
 
         if (ObjectUtils.isEmpty(pageNo) || pageNo < 0) {
@@ -49,17 +52,20 @@ public class ProductController {
         Product product = productService.findCompaniesByProductId(productId, pageable )
                 .orElseThrow( () -> new RelationsException("invalid productId") );
 
-        Set<CompanyDTO> responseSet = new HashSet<>();
+//        Set<CompanyDTO> responseSet = new HashSet<>();
+//
+//        product.getCompanies().forEach(x -> {
+//            CompanyDTO dto = new CompanyDTO();
+//            dto.setId(x.getId());
+//            dto.setName(x.getName());
+//            responseSet.add(dto);
+//        });
 
-        product.getCompanies().forEach(x -> {
-            CompanyDTO dto = new CompanyDTO();
-            dto.setId(x.getId());
-            dto.setName(x.getName());
-            responseSet.add(dto);
-        });
+        String result = new ObjectMapper().writerWithView(Views.Public.class)
+                .writeValueAsString(product.getCompanies());
 
 
-        return new ResponseEntity<>( responseSet, HttpStatus.OK  );
+        return new ResponseEntity<>( result, HttpStatus.OK  );
 
 
 

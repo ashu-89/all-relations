@@ -1,9 +1,7 @@
 package com.relations.all.model;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import com.fasterxml.jackson.annotation.*;
+import com.relations.all.views.Views;
 import jakarta.persistence.*;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.JdbcTypeCode;
@@ -25,18 +23,22 @@ public class Company {
     @Id
     @GeneratedValue
     @JdbcTypeCode(SqlTypes.VARCHAR)
+    @JsonView(Views.Public.class)
     private UUID id;
 
+    @JsonView(Views.Public.class)
     private String name;
 
     @ManyToMany
     //@JsonIgnore
+    @JsonView(Views.Internal.class)
     Set<Product> products = new HashSet<>();
 
     @JsonManagedReference //Annotations work here as well as when applied to getter itself
     @OneToMany ( cascade=CascadeType.ALL, fetch=FetchType.LAZY, mappedBy = "company") //- only required on this side for bi-directional one-to-many relation.
     //@JoinColumn(name="company_id")  //w/o join column, hibernate will create a join table
                                       //for uni-directional one-to-many relations !
+    @JsonView(Views.Internal.class)
     private List<Employee> employees;
 
     //Getters and setters

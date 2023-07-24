@@ -1,7 +1,9 @@
 package com.relations.all.model;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonView;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import com.relations.all.views.Views;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -24,11 +26,14 @@ public class Product {
     @Id
     @GeneratedValue
     @JdbcTypeCode(SqlTypes.VARCHAR)
+    @JsonView(Views.Public.class)
     UUID id;
 
+    @JsonView(Views.Public.class)
     String name;
 
     @ManyToMany ( mappedBy = "products")
+    @JsonView(Views.Public.class)
     Set<Company> companies = new HashSet<>();
 
     //Getters and setters
