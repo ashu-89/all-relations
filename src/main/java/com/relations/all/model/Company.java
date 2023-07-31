@@ -1,6 +1,8 @@
 package com.relations.all.model;
 
 import com.fasterxml.jackson.annotation.*;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.relations.all.serializer.CustomProductSetSerializer;
 import com.relations.all.views.Views;
 import jakarta.persistence.*;
 import org.hibernate.annotations.GenericGenerator;
@@ -18,6 +20,7 @@ import java.util.UUID;
 //@JsonIdentityInfo(
 //        generator = ObjectIdGenerators.PropertyGenerator.class,
 //        property = "id")
+
 public class Company {
 
     @Id
@@ -31,7 +34,8 @@ public class Company {
 
     @ManyToMany
     //@JsonIgnore
-    @JsonView(Views.Internal.class)
+    //@JsonView(Views.Internal.class)
+    @JsonSerialize(using = CustomProductSetSerializer.class) // Use the custom serializer for the 'products' field
     Set<Product> products = new HashSet<>();
 
     @JsonManagedReference //Annotations work here as well as when applied to getter itself
