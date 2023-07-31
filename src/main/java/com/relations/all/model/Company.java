@@ -17,10 +17,6 @@ import java.util.Set;
 import java.util.UUID;
 
 @Entity
-//@JsonIdentityInfo(
-//        generator = ObjectIdGenerators.PropertyGenerator.class,
-//        property = "id")
-
 public class Company {
 
     @Id
@@ -33,8 +29,6 @@ public class Company {
     private String name;
 
     @ManyToMany
-    //@JsonIgnore
-    //@JsonView(Views.Internal.class)
     @JsonSerialize(using = CustomProductSetSerializer.class) // Use the custom serializer for the 'products' field
     Set<Product> products = new HashSet<>();
 

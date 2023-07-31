@@ -23,10 +23,6 @@ import java.util.UUID;
 @Setter
 @Entity
 @Table(name = "product")
-//@JsonIdentityInfo(
-//        generator = ObjectIdGenerators.PropertyGenerator.class,
-//        property = "id")
-//@JsonMixin(ProductMixin.class)
 public class Product {
 
     @Id
@@ -66,23 +62,4 @@ public class Product {
     public void setCompanies(Set<Company> companies) {
         this.companies = companies;
     }
-
-    //
-    // Custom serializer as static inner class
-   // public static class CustomProductsSerializer extends JsonSerializer<Product> {
-//        public static class CustomProductsSerializer extends JsonSerializer<Product> {
-//
-//
-//            public CustomProductsSerializer() {
-//            // Add a default constructor (no-argument) to satisfy Jackson's requirements
-//        }
-//
-//        @Override
-//        public void serialize(Product product, JsonGenerator jsonGenerator, SerializerProvider serializerProvider) throws IOException {
-//            jsonGenerator.writeStartObject();
-//            jsonGenerator.writeStringField("id", product.getId().toString());
-//            jsonGenerator.writeEndObject();
-//        }
-//    }
-    //
 }
