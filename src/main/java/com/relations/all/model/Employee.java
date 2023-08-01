@@ -33,6 +33,17 @@ public class Employee {
     //This annotation is used only if we want custom name of the fk field (default - attributeNameOfThisTable_primaryKeyNameOfOtherTable)
     private Company company;
 
+    @OneToOne
+    private Passport passport;
+
+    public Passport getPassport() {
+        return passport;
+    }
+
+    public void setPassport(Passport passport) {
+        this.passport = passport;
+    }
+
     //Getters and Setters
     public UUID getId() {
         return id;
@@ -81,4 +92,6 @@ public class Employee {
     public void setCompany(Company company) {
         this.company = company;
     }
+
+
 }
