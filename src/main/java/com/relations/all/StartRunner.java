@@ -1,5 +1,6 @@
 package com.relations.all;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.relations.all.model.Company;
 import com.relations.all.model.Employee;
 import com.relations.all.model.Product;
@@ -128,6 +129,29 @@ public class StartRunner implements ApplicationRunner {
         productsSoldByFacebook.add(post);
         facebook.setProducts(productsSoldByFacebook);
         companyRepo.save(facebook);
+
+        String json =
+                //"{\"id\":2,\"itemName\":\"book\",\"owner\":{\"id\":1,\"name\":\"John\",\"userItems\":[2]}}";
+        "{\n" +
+                "        \"id\": \"7fe0f703-fa57-4037-b790-4d94b2cfe062\",\n" +
+                "        \"name\": \"Facebook\",\n" +
+                "        \"products\": [\n" +
+                "            {\n" +
+                "                \"id\": \"4754b2b7-3c3b-489d-89b2-0c5ccc73370e\"\n" +
+                "            },\n" +
+                "            {\n" +
+                "                \"id\": \"b14f1e70-d82a-4032-a41a-4faabdc78e57\"\n" +
+                "            }\n" +
+                "        ]\n" +
+                "    }";
+
+        Company company = new ObjectMapper().readerFor(Company.class).readValue(json);
+
+        company.getProducts().forEach(x -> System.out.println(x.getId()));
+
+        System.out.println(company.getId());
+        System.out.println(company.getName());
+
 
     }
 
