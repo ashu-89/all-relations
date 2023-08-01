@@ -25,10 +25,18 @@ public class Passport {
     private LocalDate dateIssued;
     private LocalDate dateOfExpiry;
 
-//    @OneToOne
-//    private Employee employee;
+    @OneToOne
+    private Employee employee;
 
     //Getters and setters
+
+    public Employee getEmployee() {
+        return employee;
+    }
+
+    public void setEmployee(Employee employee) {
+        this.employee = employee;
+    }
 
 
     public UUID getId() {
@@ -70,4 +78,8 @@ public class Passport {
     public void setDateOfExpiry(LocalDate dateOfExpiry) {
         this.dateOfExpiry = dateOfExpiry;
     }
+
+
+
+
 }

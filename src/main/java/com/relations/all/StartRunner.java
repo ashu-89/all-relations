@@ -63,12 +63,15 @@ public class StartRunner implements ApplicationRunner {
         ashuzPpt.setDateOfExpiry(LocalDate.of(2023,8,1));
         ashuzPpt.setPassportId("IND-001");
         ashuzPpt.setName("Pathak, Ashutosh");
+
         passportRepo.save(ashuzPpt);
 
 
         e1.setPassport(ashuzPpt);
 
         employeeRepo.save(e1);
+        ashuzPpt.setEmployee(e1);
+        passportRepo.save(ashuzPpt);
 
         Employee e2 = new Employee();
         e2.setName("Abhi");
@@ -88,6 +91,9 @@ public class StartRunner implements ApplicationRunner {
 
         employeeRepo.save(e2);
 
+        abhizPpt.setEmployee(e2);
+        passportRepo.save(abhizPpt);
+
         Employee e3 = new Employee();
         e3.setName("Martha");
         e3.setAge(42);
@@ -105,6 +111,9 @@ public class StartRunner implements ApplicationRunner {
         e3.setPassport(marthazPpt);
 
         employeeRepo.save(e3);
+
+        marthazPpt.setEmployee(e3);
+        passportRepo.save(marthazPpt);
 
         Employee e4 = new Employee();
         e4.setName("Sundari");
@@ -125,6 +134,9 @@ public class StartRunner implements ApplicationRunner {
         //
 
         employeeRepo.save(e4);
+
+        sundariPpt.setEmployee(e4);
+        passportRepo.save(sundariPpt);
 
         List<Employee> googleEmployees = new ArrayList<>();
         googleEmployees.add(e1);
