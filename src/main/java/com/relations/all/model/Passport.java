@@ -25,7 +25,8 @@ public class Passport {
     private LocalDate dateIssued;
     private LocalDate dateOfExpiry;
 
-    @OneToOne
+    @OneToOne(mappedBy = "passport")
+    @JsonBackReference
     private Employee employee;
 
     //Getters and setters

@@ -34,6 +34,7 @@ public class Employee {
     private Company company;
 
     @OneToOne
+    @JsonManagedReference
     private Passport passport;
 
     public Passport getPassport() {
