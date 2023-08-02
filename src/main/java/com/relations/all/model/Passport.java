@@ -1,6 +1,9 @@
 package com.relations.all.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.relations.all.serializer.CustomPassportSerializer;
+import com.relations.all.serializer.CustomProductSetSerializer;
 import jakarta.persistence.*;
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
@@ -10,6 +13,8 @@ import java.util.Date;
 import java.util.UUID;
 
 @Entity
+@JsonSerialize(using = CustomPassportSerializer.class)
+
 public class Passport {
 
     //@GeneratedValue(strategy = GenerationType.AUTO) cannot be used with String !!
@@ -26,7 +31,8 @@ public class Passport {
     private LocalDate dateOfExpiry;
 
     @OneToOne(mappedBy = "passport")
-    @JsonBackReference
+    //@JsonBackReference
+    //@JsonSerialize(using = CustomPassportSerializer.class)
     private Employee employee;
 
     //Getters and setters

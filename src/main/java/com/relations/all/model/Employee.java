@@ -2,6 +2,8 @@ package com.relations.all.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.relations.all.serializer.CustomEmployeeSerializer;
 import jakarta.persistence.*;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import org.hibernate.annotations.JdbcTypeCode;
@@ -10,6 +12,8 @@ import org.hibernate.type.SqlTypes;
 import java.util.UUID;
 
 @Entity
+@JsonSerialize(using = CustomEmployeeSerializer.class)
+
 public class Employee {
 
     //@GeneratedValue(strategy = GenerationType.AUTO) cannot be used with String !!
@@ -34,7 +38,7 @@ public class Employee {
     private Company company;
 
     @OneToOne
-    @JsonManagedReference
+    //@JsonManagedReference
     private Passport passport;
 
     public Passport getPassport() {

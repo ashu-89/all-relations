@@ -10,6 +10,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.UUID;
+
 @Service
 public class EmployeeService {
 
@@ -19,9 +21,15 @@ public class EmployeeService {
     @Autowired
     EmployeeRepo employeeRepo;
 
-    public Page<Employee> findEmployessByCompanyId(String companyId, Pageable pageable) {
-        return employeeRepo.findEmployeesByCompanyWithPagination(companyId,pageable);
+//    public Page<Employee> findEmployessByCompanyId(String companyId, Pageable pageable) {
+//        return employeeRepo.findEmployeesByCompanyWithPagination(companyId,pageable);
+//    }
+
+    public Page<Employee> findEmployessByCompanyId(UUID companyId, Pageable pageable) {
+        return employeeRepo.findEmployeesByCompanyWithPassport(companyId, pageable);
     }
+
+
 
     public Page<Employee> dynamicFiltersWholeEntity(Pageable pageable, String companyId, String name, Integer age, String sex, String city)
      throws RelationsException {

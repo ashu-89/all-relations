@@ -13,6 +13,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.UUID;
+
 @RestController
 @RequestMapping("/employees")
 public class EmployeeController {
@@ -20,29 +22,33 @@ public class EmployeeController {
     @Autowired
     EmployeeService employeeService;
 
+    //    @GetMapping("/employees-by-company-id/{companyId}")
+//    public ResponseEntity<Page<Employee>> getEmployeesByCompanyId(@PathVariable("companyId") String companyId,
+//                                                                  @RequestParam(value = "pageNo", required = false) int pageNo,
+//                                                                  @RequestParam(value = "pageSize", required = false) int pageSize
+//                                                                  ) throws Exception {
     @GetMapping("/employees-by-company-id/{companyId}")
-    public ResponseEntity<Page<Employee>> getEmployeesByCompanyId(@PathVariable("companyId") String companyId,
+    public ResponseEntity<Page<Employee>> getEmployeesByCompanyId(@PathVariable("companyId") UUID companyId,
                                                                   @RequestParam(value = "pageNo", required = false) int pageNo,
                                                                   @RequestParam(value = "pageSize", required = false) int pageSize
-                                                                  ) throws Exception {
-
-        try{
-            Pageable pageable = PageRequest.of(pageNo,pageSize);
-            Page<Employee> pagedResponse =  employeeService.findEmployessByCompanyId(companyId, pageable);
+    ) throws Exception {
+        try {
+            Pageable pageable = PageRequest.of(pageNo, pageSize);
+            Page<Employee> pagedResponse = employeeService.findEmployessByCompanyId(companyId, pageable);
             return new ResponseEntity<>(pagedResponse, HttpStatus.OK);
-        } catch (Exception e){
-            throw new Exception("couldn't fetch employees of this company"  + e.getMessage());
+        } catch (Exception e) {
+            throw new Exception("couldn't fetch employees of this company" + e.getMessage());
         }
     }
 
     @GetMapping("/dynamic-filters-whole-entity/{companyId}")
-    public ResponseEntity<Page<Employee>> dynamicFiltersWholeEntity( @PathVariable("companyId") String companyId,
-     @RequestParam(value = "pageNo", required = false) Integer pageNo,
-     @RequestParam(value = "pageSize", required = false) Integer pageSize,
-     @RequestParam(value = "name", required = false) String name,
-     @RequestParam(value = "age", required = false) Integer age,
-     @RequestParam(value = "sex", required = false) String sex,
-     @RequestParam(value = "city", required = false) String city ) throws Exception {
+    public ResponseEntity<Page<Employee>> dynamicFiltersWholeEntity(@PathVariable("companyId") String companyId,
+                                                                    @RequestParam(value = "pageNo", required = false) Integer pageNo,
+                                                                    @RequestParam(value = "pageSize", required = false) Integer pageSize,
+                                                                    @RequestParam(value = "name", required = false) String name,
+                                                                    @RequestParam(value = "age", required = false) Integer age,
+                                                                    @RequestParam(value = "sex", required = false) String sex,
+                                                                    @RequestParam(value = "city", required = false) String city) throws Exception {
 
         try {
 
@@ -60,9 +66,9 @@ public class EmployeeController {
 
             return new ResponseEntity<>(pagedResult, HttpStatus.OK);
 
-        } catch (RelationsException e){
+        } catch (RelationsException e) {
             throw e;
-        } catch (Exception e){
+        } catch (Exception e) {
             throw new Exception(e.getMessage());
         }
 
@@ -75,11 +81,11 @@ public class EmployeeController {
                                                                @RequestParam(value = "name", required = false) String name,
                                                                @RequestParam(value = "age", required = false) Integer age,
                                                                @RequestParam(value = "sex", required = false) String sex,
-                                                               @RequestParam(value = "city", required = false) String city ) throws Exception {
+                                                               @RequestParam(value = "city", required = false) String city) throws Exception {
 
         try {
 
-            if(ObjectUtils.isEmpty(companyId)){
+            if (ObjectUtils.isEmpty(companyId)) {
                 throw new RelationsException("Company Id is mandatory");
             }
 
@@ -92,16 +98,15 @@ public class EmployeeController {
             }
 
 
-
             Pageable pageable = PageRequest.of(pageNo, pageSize);
 
             Page<EmployeeDTO> pagedResult = employeeService.dynamicFiltersDTO(pageable, companyId, name, age, sex, city);
 
             return new ResponseEntity<>(pagedResult, HttpStatus.OK);
 
-        } catch (RelationsException e){
+        } catch (RelationsException e) {
             throw e;
-        } catch (Exception e){
+        } catch (Exception e) {
             throw new Exception(e.getMessage());
         }
 
