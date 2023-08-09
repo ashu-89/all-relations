@@ -14,6 +14,10 @@ import java.util.UUID;
 @Entity
 @JsonSerialize(using = CustomEmployeeSerializer.class)
 
+//We are only using custom employee serializer for whole class.
+//None of the fields of this class use their own custom serializers.
+//Hence, nothing more to do here. :)
+
 public class Employee {
 
     //@GeneratedValue(strategy = GenerationType.AUTO) cannot be used with String !!
