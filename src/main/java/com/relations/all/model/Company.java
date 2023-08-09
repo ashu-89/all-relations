@@ -2,6 +2,7 @@ package com.relations.all.model;
 
 import com.fasterxml.jackson.annotation.*;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.relations.all.serializer.CustomEmployeeSerializer;
 import com.relations.all.serializer.CustomProductSetSerializer;
 import com.relations.all.views.Views;
 import jakarta.persistence.*;
@@ -37,7 +38,8 @@ public class Company {
     //@JoinColumn(name="company_id")  //w/o join column, hibernate will create a join table
                                       //for uni-directional one-to-many relations !
     //@JsonView(Views.Internal.class)
-    @JsonIgnore
+    //@JsonIgnore
+    @JsonSerialize(using = CustomEmployeeSerializer.class)
     private List<Employee> employees;
 
     //Getters and setters
